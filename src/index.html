@@ -100,6 +100,27 @@
   .reveal{opacity:1;translate:0 0;filter:none}
   .motion-ready .reveal{opacity:0;translate:0 26px;filter:blur(5px);transition:opacity .75s cubic-bezier(.2,.7,.2,1),translate .75s cubic-bezier(.2,.7,.2,1),filter .75s ease}
   .motion-ready .reveal.is-visible{opacity:1;translate:0 0;filter:none}
+
+  .reference-feature-bar{
+    max-width:1180px;margin:-58px auto 0;position:relative;z-index:5;
+    display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;
+    border:1px solid rgba(182,245,0,.22);border-radius:18px;
+    background:rgba(10,16,28,.88);box-shadow:0 18px 44px rgba(0,0,0,.28);
+    backdrop-filter:blur(12px);padding:10px 14px;
+  }
+  .reference-feature-bar a{min-width:0;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border-radius:12px;color:#F4F5F0;font-size:12px;font-weight:700;text-align:center;transition:.2s}
+  .reference-feature-bar a:hover{background:rgba(182,245,0,.09);color:#B6F500}
+  .reference-feature-bar svg{width:24px;height:24px;flex-shrink:0}
+
+  .hero-world{
+    position:absolute;inset:0;border-radius:28px;overflow:hidden;
+    background:radial-gradient(circle at 78% 46%,rgba(182,245,0,.18),transparent 12%),linear-gradient(145deg,#123a62,#061626 72%);
+  }
+  .hero-world-grid{position:absolute;inset:0;opacity:.22;background-image:linear-gradient(rgba(123,224,164,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(123,224,164,.35) 1px,transparent 1px);background-size:24px 24px}
+  .hero-truck{position:absolute;left:-28px;bottom:-2px;width:84%;filter:drop-shadow(0 24px 24px rgba(0,0,0,.7))}
+  .hero-kpi{position:absolute;z-index:4;background:rgba(244,245,240,.96);color:#0A0A0A;border-radius:14px;padding:14px 16px;box-shadow:0 16px 30px rgba(0,0,0,.28)}
+  .hero-kpi strong{display:block;font-family:var(--font-display);font-size:18px;line-height:1.1}
+  .hero-kpi small{display:block;margin-top:5px;color:#315846;font-size:11px;font-weight:700}
   .cursor-dot,.cursor-ring{display:none;position:fixed;top:0;left:0;z-index:120;pointer-events:none;border-radius:50%;will-change:transform}
   .cursor-dot{width:7px;height:7px;background:var(--green);box-shadow:0 0 14px rgba(182,245,0,.8)}
   .cursor-ring{width:34px;height:34px;border:1px solid rgba(182,245,0,.75);background:rgba(182,245,0,.06);transition:width .22s ease,height .22s ease,border-color .22s ease,background .22s ease}
@@ -196,7 +217,233 @@
     .primary-nav a:hover,.primary-nav a[aria-current="location"]{background:rgba(182,245,0,.08)}
     .primary-nav a.btn{justify-content:center;margin-top:4px}
     .project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .reference-feature-bar{grid-template-columns:repeat(4,minmax(0,1fr));margin:-42px 16px 0}
   }
+  /* ══════════════════════════════════════════
+     3-D EXTRA EFFECTS  –  CnsExpo 2025
+  ══════════════════════════════════════════ */
+
+  /* Neon glow text utility */
+  .neon-text{
+    text-shadow:
+      0 0 7px  rgba(182,245,0,.9),
+      0 0 18px rgba(182,245,0,.7),
+      0 0 42px rgba(182,245,0,.4),
+      0 0 90px rgba(182,245,0,.2);
+  }
+
+  /* Holographic card sheen */
+  .holo-card{
+    position:relative;
+    overflow:hidden;
+    transform-style:preserve-3d;
+  }
+  .holo-card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+      135deg,
+      rgba(255,255,255,0)   0%,
+      rgba(182,245,0,.08)  20%,
+      rgba(42,171,238,.08) 40%,
+      rgba(255,255,255,0)  60%,
+      rgba(182,245,0,.05)  80%,
+      rgba(255,255,255,0) 100%
+    );
+    background-size:200% 200%;
+    animation:holo-shift 5s ease infinite;
+    pointer-events:none;
+    z-index:1;
+    border-radius:inherit;
+  }
+  @keyframes holo-shift{
+    0%{background-position:0% 0%}
+    50%{background-position:100% 100%}
+    100%{background-position:0% 0%}
+  }
+
+  /* 3D tilt card – applied via JS */
+  .tilt3d{
+    transform-style:preserve-3d;
+    transition:transform .15s ease;
+    will-change:transform;
+  }
+  .tilt3d-inner{
+    transform:translateZ(28px);
+    transition:transform .15s ease;
+  }
+
+  /* Floating neon orbs background */
+  .orb-bg{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(60px);
+    pointer-events:none;
+    z-index:0;
+    animation:orb-drift 10s ease-in-out infinite alternate;
+  }
+  .orb-bg.lime{background:rgba(182,245,0,.18);width:360px;height:360px}
+  .orb-bg.blue{background:rgba(42,171,238,.14);width:260px;height:260px}
+  .orb-bg.mint{background:rgba(123,224,164,.12);width:200px;height:200px}
+  @keyframes orb-drift{
+    0%{transform:translate(0,0) scale(1)}
+    100%{transform:translate(30px,40px) scale(1.12)}
+  }
+
+  /* 3D depth border glow */
+  .depth-card{
+    position:relative;
+    transform:perspective(600px) translateZ(0);
+    transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s;
+  }
+  .depth-card::after{
+    content:'';
+    position:absolute;
+    inset:-1px;
+    border-radius:inherit;
+    background:linear-gradient(135deg,rgba(182,245,0,.55),rgba(42,171,238,.35),rgba(182,245,0,.2));
+    z-index:-1;
+    opacity:0;
+    transition:opacity .4s;
+    filter:blur(8px);
+  }
+  .depth-card:hover{transform:perspective(600px) translateZ(18px) translateY(-6px)}
+  .depth-card:hover::after{opacity:1}
+
+  /* Neon border pulse on cards */
+  @keyframes neon-border{
+    0%,100%{box-shadow:0 0 8px rgba(182,245,0,.4),inset 0 0 8px rgba(182,245,0,.05)}
+    50%{box-shadow:0 0 22px rgba(182,245,0,.7),inset 0 0 14px rgba(182,245,0,.12)}
+  }
+  .neon-border-pulse{animation:neon-border 3s ease-in-out infinite}
+
+  /* Scanline overlay */
+  .scanlines::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,0) 0px,
+      rgba(0,0,0,0) 2px,
+      rgba(0,0,0,.08) 2px,
+      rgba(0,0,0,.08) 4px
+    );
+    pointer-events:none;
+    border-radius:inherit;
+  }
+
+  /* Glitch text animation */
+  @keyframes glitch-1{
+    0%,80%{clip-path:inset(0 0 95% 0)}
+    81%{clip-path:inset(10% 0 70% 0)}
+    82%{clip-path:inset(40% 0 40% 0)}
+    83%,100%{clip-path:inset(0 0 95% 0)}
+  }
+  @keyframes glitch-2{
+    0%,85%{clip-path:inset(0 0 95% 0)}
+    86%{clip-path:inset(60% 0 20% 0)}
+    87%{clip-path:inset(80% 0 5% 0)}
+    88%,100%{clip-path:inset(0 0 95% 0)}
+  }
+  .glitch{position:relative}
+  .glitch::before,.glitch::after{
+    content:attr(data-text);
+    position:absolute;inset:0;
+    color:var(--green);
+  }
+  .glitch::before{text-shadow:2px 0 rgba(42,171,238,.8);animation:glitch-1 6s infinite}
+  .glitch::after{text-shadow:-2px 0 rgba(182,245,0,.6);animation:glitch-2 6s infinite}
+
+  /* 3D icon lift */
+  .icon3d{transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+  .icon3d:hover,.card:hover .icon3d{
+    transform:translateY(-4px) rotateX(12deg) rotateY(-8deg) scale(1.08);
+    box-shadow:0 20px 32px -10px rgba(0,0,0,.7),0 0 24px rgba(182,245,0,.5);
+  }
+
+  /* Particle dot system */
+  .particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .particle{
+    position:absolute;
+    border-radius:50%;
+    background:var(--green);
+    opacity:.6;
+    animation:particle-float linear infinite;
+  }
+  @keyframes particle-float{
+    0%{transform:translateY(100%) scale(0);opacity:0}
+    10%{opacity:.7}
+    90%{opacity:.4}
+    100%{transform:translateY(-120px) scale(1.5);opacity:0}
+  }
+
+  /* Glass morphism card */
+  .glass-card{
+    background:rgba(255,255,255,.04);
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 8px 32px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.12);
+  }
+
+  /* 3D button */
+  .btn-3d{
+    transform-style:preserve-3d;
+    position:relative;
+  }
+  .btn-3d::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    transform:translateZ(-6px) translateY(6px);
+    border-radius:inherit;
+    background:rgba(100,170,0,.6);
+    filter:blur(2px);
+    transition:transform .25s;
+  }
+  .btn-3d:hover::before{transform:translateZ(-8px) translateY(10px)}
+  .btn-3d:active::before{transform:translateZ(-2px) translateY(2px)}
+
+  /* Neon grid background */
+  .neon-grid-bg{
+    background-image:
+      linear-gradient(rgba(182,245,0,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(182,245,0,.06) 1px, transparent 1px);
+    background-size:48px 48px;
+  }
+
+  /* Floating badge 3D */
+  .badge-3d{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:7px 16px;
+    border-radius:999px;
+    background:linear-gradient(135deg,rgba(182,245,0,.15),rgba(42,171,238,.1));
+    border:1px solid rgba(182,245,0,.35);
+    box-shadow:0 0 20px rgba(182,245,0,.2),inset 0 1px 0 rgba(255,255,255,.12);
+    font-size:.78rem;font-weight:800;color:var(--green);letter-spacing:.06em;
+    text-transform:uppercase;
+    animation:badge-pulse 3s ease-in-out infinite;
+  }
+  @keyframes badge-pulse{
+    0%,100%{box-shadow:0 0 10px rgba(182,245,0,.2),inset 0 1px 0 rgba(255,255,255,.12)}
+    50%{box-shadow:0 0 28px rgba(182,245,0,.5),inset 0 1px 0 rgba(255,255,255,.18)}
+  }
+
+  /* Spinning ring decoration */
+  .ring-deco{
+    position:absolute;border-radius:50%;border:2px solid rgba(182,245,0,.3);
+    animation:ring-spin 12s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes ring-spin{to{transform:rotate(360deg)}}
+  .ring-deco::after{
+    content:'';position:absolute;top:-4px;left:50%;
+    width:8px;height:8px;margin-left:-4px;
+    border-radius:50%;background:var(--green);
+    box-shadow:0 0 14px var(--green);
+  }
+
   @media (max-width:640px){
     .eyebrow{font-size:19px}
     .icon3d{width:56px;height:56px}
@@ -272,13 +519,14 @@
       <span>Menú</span>
     </button>
     <nav class="primary-nav" id="primary-navigation" aria-label="Navegación principal">
+      <a class="lnk" href="#inicio" data-section-link aria-current="location">Inicio</a>
       <a class="lnk" href="#servicios" data-section-link>Servicios</a>
       <a class="lnk" href="#transporte" data-section-link>Transporte</a>
       <a class="lnk" href="#trabajo" data-section-link>Trabajo</a>
       <a class="lnk" href="#ciberseguridad" data-section-link>Ciberseguridad</a>
       <a class="lnk" href="#proceso" data-section-link>Proceso</a>
       <a class="lnk" href="#liderazgo" data-section-link>Liderazgo</a>
-      <a class="btn" href="#contacto" style="min-height:46px;padding:0 22px;background:#B6F500;color:#0A0A0A;border-radius:999px;font-weight:700">Hablemos</a>
+      <a class="btn" href="#contacto" style="min-height:46px;padding:0 22px;background:#B6F500;color:#0A0A0A;border-radius:999px;font-weight:700">Iniciar Sesión</a>
     </nav>
   </div>
 </header>
@@ -301,7 +549,7 @@
     <div style="flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:30px">
       <div class="rise" style="align-self:flex-start;display:inline-flex;align-items:center;gap:10px;padding:6px 18px 6px 8px;border:1px solid rgba(182,245,0,.35);background:rgba(182,245,0,.08);border-radius:999px;color:#B6F500;font-family:var(--font-hand);font-weight:700;font-size:20px">
         <span class="dot" style="width:8px;height:8px;border-radius:4px;background:#B6F500;display:inline-block"></span>
-        software que sí aguanta
+        Monitoreo GPS en tiempo real
       </div>
       <h1 style="font-weight:800;font-size:var(--fs-h1);line-height:.98;letter-spacing:-.035em">
         <span class="rise d1" style="display:block">Construimos el</span>
@@ -309,16 +557,16 @@
         <span class="rise d3" style="display:block"><span class="ital" style="color:#B6F500">sostiene</span> tu operación.</span>
       </h1>
       <p class="rise d4" style="margin:0;max-width:520px;font-size:var(--fs-lead);color:#C9CCD2">
-        En <strong style="color:#F4F5F0">CnsExpo</strong>, desde Laredo, Tamaulipas, hacemos apps móviles, sistemas ERP, plataformas ASP.NET, monitoreo GPS de unidades y ciberseguridad. Un solo equipo, de la idea al soporte.
+        Soluciones de monitoreo GPS, logística y gestión para mantener el control de tu operación en tiempo real.
       </p>
       <div class="rise d5" style="display:flex;flex-wrap:wrap;gap:12px">
         <a class="btn shine" href="#contacto" style="min-height:54px;padding:0 28px;background:#B6F500;color:#0A0A0A;border-radius:999px;font-weight:700;font-size:16px">
-          Cuéntanos tu proyecto
+          Comenzar ahora
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
         <a class="btn" href="https://t.me/+525657969569" target="_blank" rel="noopener" style="min-height:54px;padding:0 24px;border:1.5px solid rgba(42,171,238,.7);color:#F4F5F0;border-radius:999px;font-weight:700;font-size:16px">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="#2AABEE" aria-hidden="true"><path d="M21.94 4.6 18.6 20.3c-.25 1.1-.9 1.38-1.82.86l-5.03-3.71-2.43 2.34c-.27.27-.5.5-1.02.5l.36-5.14 9.36-8.45c.4-.36-.09-.56-.63-.2L6.05 13.05l-4.97-1.55c-1.08-.34-1.1-1.08.23-1.6L20.6 3.13c.9-.33 1.68.2 1.34 1.47z"/></svg>
-          Telegram
+          Ver demo
         </a>
       </div>
       <div class="rise d5" style="display:flex;flex-wrap:wrap;gap:20px;font-size:14px;color:#9CA0A8;margin-top:6px">
@@ -329,35 +577,57 @@
 
     <div class="rise d3" style="flex:1 1 360px;min-width:0;display:flex;justify-content:center">
       <div class="hero-mockup">
-        <div class="fl screen" style="position:absolute;left:0;top:30px;width:214px;height:436px;background:#111114;border:1.5px solid #7BE0A4;border-radius:36px;padding:22px 16px;display:flex;flex-direction:column;gap:14px">
-          <div style="width:56px;height:8px;border-radius:4px;background:#0F3D2E;align-self:center"></div>
-          <div style="width:110px;height:14px;border-radius:4px;background:#F4F5F0;margin-top:6px"></div>
-          <div style="display:flex;gap:10px;align-items:center"><div style="width:30px;height:30px;border-radius:15px;background:#B6F500;flex-shrink:0"></div><div style="flex:1;display:flex;flex-direction:column;gap:6px"><div style="height:8px;border-radius:4px;background:#0F3D2E"></div><div style="height:8px;width:60%;border-radius:4px;background:#1A5C43"></div></div></div>
-          <div style="display:flex;gap:10px;align-items:center"><div style="width:30px;height:30px;border-radius:15px;background:#7BE0A4;flex-shrink:0"></div><div style="flex:1;display:flex;flex-direction:column;gap:6px"><div style="height:8px;border-radius:4px;background:#0F3D2E"></div><div style="height:8px;width:70%;border-radius:4px;background:#1A5C43"></div></div></div>
-          <div style="display:flex;gap:10px;align-items:center"><div style="width:30px;height:30px;border-radius:15px;background:#F5C45E;flex-shrink:0"></div><div style="flex:1;display:flex;flex-direction:column;gap:6px"><div style="height:8px;border-radius:4px;background:#0F3D2E"></div><div style="height:8px;width:50%;border-radius:4px;background:#1A5C43"></div></div></div>
-          <div style="margin-top:auto;height:42px;border-radius:21px;background:#B6F500"></div>
-        </div>
-        <div class="fl screen" style="position:absolute;right:0;top:0;width:62%;background:#F4F5F0;color:#0A0A0A;border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:12px;animation-delay:-2s">
-          <div>
-            <div style="font-weight:700;font-size:14px">Panel ERP · CnsExpo</div>
-            <div style="font-size:12px;color:#4B4F6B">Inventario · Ventas · Compras</div>
-          </div>
-          <svg viewBox="0 0 200 100" preserveAspectRatio="none" style="width:100%;height:110px">
-            <defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1A5C43" stop-opacity=".65"/><stop offset="100%" stop-color="#1A5C43" stop-opacity="0"/></linearGradient></defs>
-            <path d="M0 80 L25 60 L50 70 L75 35 L100 50 L125 25 L150 45 L175 20 L200 35 L200 100 L0 100 Z" fill="url(#areaGrad)"/>
-            <path d="M0 80 L25 60 L50 70 L75 35 L100 50 L125 25 L150 45 L175 20 L200 35" fill="none" stroke="#0A0A0A" stroke-width="2.5" stroke-linejoin="round"/>
-            <circle cx="125" cy="25" r="3.5" fill="#0A0A0A"/>
-            <circle cx="175" cy="20" r="3.5" fill="#B6F500" stroke="#0A0A0A" stroke-width="1.5"/>
+        <div class="hero-world" aria-label="Mapa global y flota GPS">
+          <div class="hero-world-grid"></div>
+          <svg viewBox="0 0 620 360" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">
+            <g fill="none" stroke="#86baff" stroke-width="1.2" opacity=".45">
+              <path d="M64 78l38-22 48 12 22 30-31 18-18 38-39-8-26-34zM188 55l74 8 42 30-25 28-46-5-42-28zM310 82l46-17 70 18 44 35-20 35-61-8-32 24-58-32zM414 184l66 8 48 42-28 34-70-9-35-38zM103 166l52 11 34 58-34 46-66-20-29-58z"/>
+              <path d="M61 184C160 120 286 111 398 147c72 23 132 64 166 111" stroke="#B6F500" stroke-dasharray="5 7"/>
+              <path d="M96 245C180 182 270 184 348 224c58 30 105 67 146 96" stroke="#7BE0A4" stroke-dasharray="4 8"/>
+              <circle cx="398" cy="147" r="6" fill="#B6F500"/><circle cx="348" cy="224" r="5" fill="#7BE0A4"/>
+            </g>
+            <g fill="#B6F500" opacity=".75"><circle cx="398" cy="147" r="3"/><circle cx="348" cy="224" r="3"/><circle cx="494" cy="258" r="3"/><circle cx="263" cy="200" r="3"/></g>
+          </svg>
+          <svg class="hero-truck" viewBox="0 0 520 260" aria-label="Unidad de transporte">
+            <defs><linearGradient id="truckCab" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fbff"/><stop offset=".7" stop-color="#aeb9c7"/><stop offset="1" stop-color="#627287"/></defs>
+            <ellipse cx="280" cy="226" rx="235" ry="18" fill="#05080c" opacity=".55"/>
+            <path d="M34 100h236v112H34z" fill="#e9edf2" stroke="#9aa8b5" stroke-width="3"/>
+            <path d="M34 100l35-54h132l69 54z" fill="#dfe6ed" stroke="#9aa8b5" stroke-width="3"/>
+            <path d="M270 107h92l54 50v55H270z" fill="url(#truckCab)" stroke="#687887" stroke-width="3"/>
+            <path d="M351 118h20l38 36h-58z" fill="#15344f"/>
+            <path d="M270 107h92v105H270z" fill="#cbd5df" opacity=".8"/>
+            <rect x="288" y="128" width="42" height="57" rx="4" fill="#eef3f7" stroke="#73839a"/>
+            <path d="M416 157h45l25 24v31h-70z" fill="#dce4ec"/>
+            <g fill="#0b1118" stroke="#8792a0" stroke-width="5"><circle cx="105" cy="213" r="28"/><circle cx="374" cy="213" r="28"/></g>
+            <g fill="#cad2dc"><circle cx="105" cy="213" r="10"/><circle cx="374" cy="213" r="10"/></g>
+            <rect x="34" y="188" width="236" height="24" fill="#eef2f5"/>
+            <path d="M34 100l35-54h132l69 54" fill="none" stroke="#b6f500" stroke-width="3"/>
           </svg>
         </div>
-        <div class="fl" style="position:absolute;right:8px;bottom:30px;display:flex;align-items:center;gap:10px;background:#B6F500;color:#0A0A0A;border-radius:16px;padding:12px 16px;font-weight:700;font-size:14px;animation-delay:-4s">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Respaldo completado
+        <div class="hero-kpi fl" style="top:18px;right:16px;animation-delay:-2s">
+          <strong>Flota en tiempo real</strong>
+          <small><span style="color:#29a66a">●</span> En línea · 12 de 16</small>
+          <svg viewBox="0 0 120 38" style="width:120px;height:38px;margin-top:8px"><path d="M0 31L18 24l15 5 15-15 16 8 15-11 16 8 25-13v32H0z" fill="#cfeee1"/><path d="M0 31L18 24l15 5 15-15 16 8 15-11 16 8 25-13" fill="none" stroke="#29a66a" stroke-width="3"/></svg>
+        </div>
+        <div class="hero-kpi fl" style="right:10px;bottom:36px;animation-delay:-4s">
+          <strong>Unidad #102 <span style="color:#29a66a">●</span></strong>
+          <small>En ruta · 72 km/h</small>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<nav class="reference-feature-bar" aria-label="Funciones principales">
+  <a href="#transporte"><svg viewBox="0 0 24 24" fill="none" stroke="#B6F500" stroke-width="2"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg><span>GPS</span></a>
+  <a href="#transporte"><svg viewBox="0 0 24 24" fill="none" stroke="#B6F500" stroke-width="2"><circle cx="6" cy="17" r="2"/><circle cx="18" cy="17" r="2"/><path d="M8 17h8M6 15V8l4-4h7l3 4v7M10 4v11"/></svg><span>Rutas</span></a>
+  <a href="#trabajo"><svg viewBox="0 0 24 24" fill="none" stroke="#B6F500" stroke-width="2"><path d="M4 20V10M10 20V5M16 20v-7M22 20H2"/></svg><span>Reportes</span></a>
+  <a href="#contacto"><svg viewBox="0 0 24 24" fill="none" stroke="#B6F500" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg><span>Alertas</span></a>
+  <a href="#servicios"><svg viewBox="0 0 24 24" fill="none" stroke="#B6F500" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="5"/></svg><span>IoT</span></a>
+  <a href="#liderazgo"><svg viewBox="0 0 24 24" fill="none" stroke="#B6F500" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg><span>Soporte</span></a>
+  <a href="#ciberseguridad"><svg viewBox="0 0 24 24" fill="none" stroke="#B6F500" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 1.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-2.6V20a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L7.6 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 6.4 14H6v-2.6h.4A1.7 1.7 0 0 0 8 10.4a1.7 1.7 0 0 0-.3-1.9L7.6 8l1.8-1.8.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 12.4 5V4.8H15V5a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 8l-.1.1a1.7 1.7 0 0 0-.3 1.9A1.7 1.7 0 0 0 21 11h.2v2.6H21a1.7 1.7 0 0 0-1.6 1.4z"/></svg><span>Seguridad</span></a>
+  <a href="#ciberseguridad"><svg viewBox="0 0 24 24" fill="none" stroke="#B6F500" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg><span>Soporte técnico</span></a>
+</nav>
 
 <!-- ============ TICKER TECNOLOGÍAS ============ -->
 <section id="tecnologias" style="background:linear-gradient(90deg,#0F3D2E 0%,#0A0A0A 50%,#0F3D2E 100%);overflow:hidden" aria-label="Tecnologías">
@@ -394,6 +664,7 @@
     </span>
   </div>
 </section>
+
 
 <!-- ============ SERVICIOS ============ -->
 <section id="servicios" style="background:#0A0A0A">
@@ -481,6 +752,7 @@
   </div>
 </section>
 
+
 <!-- ============ TRANSPORTE GPS ============ -->
 <section id="transporte" style="background:linear-gradient(180deg,#0A0A0A 0%,#0F3D2E 100%);color:#F4F5F0">
   <div style="max-width:1180px;margin:0 auto;padding:104px 24px;display:flex;flex-direction:column;gap:48px">
@@ -541,6 +813,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- ============ TRABAJO ============ -->
 <section id="trabajo" style="background:#0A0A0A">
@@ -659,6 +932,7 @@
   </div>
 </section>
 
+
 <!-- ============ CIBERSEGURIDAD ============ -->
 <section id="ciberseguridad" style="background:linear-gradient(180deg,#111114 0%,#0A0A0A 100%);color:#F4F5F0">
   <div style="max-width:1180px;margin:0 auto;padding:104px 24px;display:flex;flex-direction:column;gap:48px">
@@ -700,6 +974,7 @@
   </div>
 </section>
 
+
 <!-- ============ VALORES ============ -->
 <section style="background:#0A0A0A">
   <div style="max-width:1180px;margin:0 auto;padding:60px 24px 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px">
@@ -720,6 +995,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- ============ PROCESO ============ -->
 <section id="proceso" style="background:#111114">
@@ -764,6 +1040,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- ============ LIDERAZGO ============ -->
 <section id="liderazgo" style="background:#0A0A0A;color:#F4F5F0">
@@ -814,6 +1091,7 @@
   </div>
 </section>
 
+
 <!-- ============ CONTACTO ============ -->
 <section id="contacto" style="background:linear-gradient(135deg,#0F3D2E 0%,#0A0A0A 60%,#1A5C43 100%);color:#F4F5F0">
   <div style="max-width:1180px;margin:0 auto;padding:96px 24px;display:flex;flex-wrap:wrap;align-items:center;gap:48px">
@@ -847,6 +1125,7 @@
 
   </div>
 </section>
+
 
 <!-- ============ FOOTER ============ -->
 <footer style="background:#0A0A0A;color:#9CA0A8;border-top:1px solid rgba(182,245,0,.12)">
